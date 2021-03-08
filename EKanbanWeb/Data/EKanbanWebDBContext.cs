@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EKanbanWeb.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace EKanbanWeb.Data
         public EKanbanWebDBContext() { }
 
         public EKanbanWebDBContext(DbContextOptions options) : base(options) { }
+
+        public DbSet<SyUser> SyUser { get; set; }
+        public DbSet<SyRole> SyRole { get; set; }
     }
 }

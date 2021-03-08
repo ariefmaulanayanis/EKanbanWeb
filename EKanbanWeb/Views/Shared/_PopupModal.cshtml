@@ -1,0 +1,80 @@
+﻿<script type="text/javascript">
+    function showInPopup(url, title) {
+        $.ajax({
+            type: "get",
+            url: url,
+            success: function (res) {
+                $('#mdlDetail .modal-content').width(1200);
+                $('#mdlDetail .modal-body').html(res);
+                $('#mdlDetail .modal-title').html(title);
+                $('#mdlDetail').modal('show').position('center');
+            }
+        })
+    }
+
+    function jQueryAjaxPost(form, mode) {
+        try {
+            $('#saveWaitDialog').modal('show').position('center');
+            $.ajax({
+                type: 'post',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res.status) {
+                        $('#mdlDetail .modal-body').html('');
+                        $('#mdlDetail .modal-title').html('');
+                        $('#mdlDetail').modal('hide');
+                        $('#saveWaitDialog').modal('hide');
+                        if (mode == "Save")
+                            alert("Data has been saved.");
+                        else if (mode == "Copy")
+                            alert("Data has been copied.");
+                        else if (mode == "Upload") {
+                            alert("File has been uploaded.");
+                            window.location.href = window.location.href;
+                        }
+                        else if (mode == "SaveParams") {
+                            alert("Data has been saved.");
+                            RefreshParameters();
+                        }
+                        else
+                            alert("Data has been deleted.")
+                        if (mode != "Upload") $('#tbl').DataTable().ajax.reload();
+                    }
+                    else {
+                        $('#saveWaitDialog').modal('hide');
+                        $('#mdlDetail .modal-body').html(res.html);
+                    }
+                },
+                error: function () {
+                    $('#saveWaitDialog').modal('hide');
+                    console.log(error);
+                }
+            })
+        }
+        catch (e) {
+            $('#saveWaitDialog').modal('hide');
+            console.log(e);
+        }
+        return false;
+    }
+</script>
+
+<div class="modal" tabindex="-1" role="dialog" id="mdlDetail">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-sm">
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_SaveWait")

@@ -3,6 +3,6 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome @ViewBag.UserRealName!</h1>
+    <p>You have successfully log into <a href="@Url.Action("Index","Home",null,Context.Request.Scheme)"><strong>E-Kanban</strong>System</a>.</p>
 </div>

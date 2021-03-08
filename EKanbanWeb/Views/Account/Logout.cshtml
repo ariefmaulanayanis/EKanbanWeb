@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+}
+
+<div style="width:50%" margin="0 auto" class="tableContainer text-sm">
+    <div class="card" id="filterForm">
+        <div class="card-body">
+            <div>
+                <p>Are you sure to logout from system?</p>
+            </div>
+            <div class="float-right">
+                <form asp-controller="Account" asp-action="LogoutConfirm" method="post" id="logoutForm">
+                    <button type="submit" class="btn btn-info">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
