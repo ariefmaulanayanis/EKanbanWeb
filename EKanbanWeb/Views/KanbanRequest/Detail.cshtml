@@ -1,0 +1,308 @@
+﻿@model EKanbanWeb.Models.KanbanRequest
+@{
+    ViewData["Title"] = "Kanban Request Detail";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#PartFGId').change(function () {
+            partFGId = $(this).val();
+            GetPartFGData(partFGId);
+        });
+
+        @if (ViewBag.Message != "")
+        {
+            <text>alert("@ViewBag.Message");</text>
+        }
+    });
+
+    function GetPartFGData(partFGId) {
+        var url = '/KanbanRequest/GetPartFGData';
+        $.ajax({
+            type: "post",
+            url: url,
+            data: { partFGId },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "") {
+                    $('#PartFGName').val(data.partFGName);
+                    $('#LineNo').val(data.lineNo);
+                    $('#LineName').val(data.lineName);
+                }
+                else {
+                    $('#PartFGName').val("");
+                    $('#LineNo').val("");
+                    $('#LineName').val("");
+                }
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    }
+</script>
+
+<form id="frmDetail" asp-action="Detail" asp-controller="KanbanRequest" method="post" autocomplete="off">
+    <div asp-validation-summary="ModelOnly" class="text-danger text-sm"></div>
+    <input type="hidden" asp-for="KanbanReqId" />
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="TagRequestNo" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="TagRequestNo" value="@Model.TagRequestNo" readonly />
+                </div>
+                <div class="col-sm-1"></div>
+                <label asp-for="RequestDateTime" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="RequestDateTime" value="@Model.RequestDateTime.ToString("dd-MMM-yyyy hh:mm:ss")" readonly />
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="PartFGId" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <select asp-for="PartFGId" asp-items="@ViewBag.PartFGList" class="form-control chosen-select">
+                        <option value="">Please select part FG...</option>
+                    </select>
+                    <span asp-validation-for="PartFGId" class="text-danger text-sm"></span>
+                </div>
+                <div class="col-sm-1"></div>
+                <label class="col-form-label-sm col-sm-2">Part FG Name</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" value="@ViewBag.PartFGName" id="PartFGName" readonly />
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label class="col-form-label-sm col-sm-2">Line No</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" value="@ViewBag.LineNo" id="LineNo" readonly />
+                </div>
+                <div class="col-sm-1"></div>
+                <label class="col-form-label-sm col-sm-2">Line Name</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" value="@ViewBag.LineName" id="LineName" readonly />
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="LotNumber" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control text-sm" asp-for="LotNumber" />
+                    <span asp-validation-for="LotNumber" class="text-danger text-sm"></span>
+                </div>
+                <div class="col-sm-1"></div>
+                <label asp-for="TrolleyNo" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control text-sm" asp-for="TrolleyNo" />
+                    <span asp-validation-for="TrolleyNo" class="text-danger text-sm"></span>
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="SendDateTime" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="SendDateTime" value="@(Model.SendDateTime == null ? "" : Model.SendDateTime.Value.ToString("dd-MMM-yyyy hh:mm:ss"))" readonly />
+                </div>
+                <div class="col-sm-1"></div>
+                <label asp-for="ReturnDateTime" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="ReturnDateTime" value="@(Model.ReturnDateTime == null ? "" : Model.ReturnDateTime.Value.ToString("dd-MMM-yyyy hh:mm:ss"))" readonly />
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="ReceiveDateTime" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="ReceiveDateTime" value="@(Model.ReceiveDateTime == null ? "" : Model.ReceiveDateTime.Value.ToString("dd-MMM-yyyy hh:mm:ss"))" readonly />
+                </div>
+                <div class="col-sm-1"></div>
+                <label asp-for="PickerName" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control text-sm" asp-for="PickerName" readonly />
+                </div>
+            </div>
+            <div class="form-group-sm row" style="margin-bottom:5px">
+                <label asp-for="CancelNote" class="col-form-label-sm col-sm-2"></label>
+                <div class="col-sm-9">
+                    <textarea class="form-control text-sm" rows="2" asp-for="CancelNote"></textarea>
+                    <span asp-validation-for="CancelNote" class="text-danger text-sm"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @{ var floatright = "float-right"; }
+        @if (ViewBag.UserRoleId == 1 || ViewBag.UserRoleId == 2) //admin atau manufacture
+        {
+            @if (Model.StatusId == 1)
+            {
+                <button id="btnSave" name="button" value="save" type="submit" class="popup btn btn-primary text-sm">
+                    <span class="far fa-save" style="padding-right:10px;"></span>Save Draft
+                </button>
+                @if (Model.KanbanReqId != 0)
+                {
+                    <button id="btnCancel" name="button" value="cancel" type="submit" class="popup btn btn-danger text-sm">
+                        <span class="fas fa-ban" style="padding-right:10px;"></span>Cancel
+                    </button>
+                    <button id="btnSend" name="button" value="send" type="submit" class="popup btn btn-success text-sm">
+                        <span class="fas fa-warehouse" style="padding-right:10px;"></span>Send To Warehouse
+                    </button>
+                }
+                floatright = "float-right";
+            }
+            @if (Model.StatusId == 3 || Model.StatusId == 4)
+            {
+                <button id="btnReceive" name="button" value="receive" type="submit" class="popup btn btn-success text-sm">
+                    <span class="fas fa-hand-holding" style="padding-right:10px;"></span>Receive
+                </button>
+                floatright = "float-right";
+            }
+        }
+        <button type="button" class="popup btn btn-primary text-sm @floatright" id="btnBack" onclick="window.location = '@Url.Action("Index", "KanbanRequest", null, Context.Request.Scheme)'">
+            <span class="fas fa-arrow-circle-left" style="padding-right:10px;"></span>Back to Kanban Request Page
+        </button>
+    </div>
+</form>
+
+@if (ViewBag.Action == "edit")
+{
+    @await Html.PartialAsync("_Scripts")
+    <script type="text/javascript">
+        var canEdit ="@ViewBag.PageAccess.CanEdit";
+        var canDelete="@ViewBag.PageAccess.CanDelete";
+
+        $(document).ready(function () {
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                @Html.Raw(ViewBag.ButtonExportJS)
+            }
+
+            var oTable = $('#tbl').DataTable({
+                dom: 'rtBip',
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    <text>
+                    buttons:
+                        [
+                            {
+                                extend: 'excel',
+                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                            },
+                            {
+                                extend: 'pdf', orientation: 'landscape', pageSize: 'A4',
+                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                            },
+                            {
+                                extend: 'print', orientation: 'landscape', pageSize: 'A4',
+                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                            }
+                        ],
+                    </text>
+                }
+                scrollX: true,
+                autoWidth: false,
+                ajax: {
+                    url: '/KanbanRequest/ItemGetData?kanbanReqId=' + @Model.KanbanReqId,
+                    dataSrc: '',
+                    type: 'post',
+                    dataType: 'json'
+                },
+                columns: [
+                    { 'data': null },
+                    {
+                        'data': null,
+                        'render': function (data, type, row) {
+                            var btnEdit = "";
+                            var btnDelete = "";
+                            if (canEdit == "True") {
+                                var urlEdit = '@Url.Action("ItemDetail", "KanbanRequest", null,Context.Request.Scheme)';
+                                urlEdit = urlEdit + '/' + row.ReqItemId;
+                                btnEdit = btnEdit + "\
+                                    <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlEdit + "\",\"Edit Kanban Item\")' title = 'Edit' >\
+                                        <i class='far fa-edit'></i>\
+                                    </button>";
+                            }
+                            if (canDelete == "True") {
+                                var urlDelete = '@Url.Action("ItemDelete", "KanbanRequest", null,Context.Request.Scheme)';
+                                urlDelete = urlDelete + '/' + row.ReqItemId;
+                                btnDelete = btnDelete + "\
+                                    <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlDelete + "\",\"Delete Kanban Item\")' title = 'Delete' >\
+                                        <i class='far fa-edit'></i>\
+                                    </button>";
+                            }
+                            return "\
+                                <div class='btn-group'>\
+                                " + btnEdit + btnDelete + "\
+                                </div>";
+                        },
+                        @Html.Raw(ViewBag.ActionColumnVisible)
+                    },
+                    { 'data': 'PartName' },
+                    { 'data': 'Supplier' },
+                    { 'data': 'PartNo' },
+                    { 'data': 'EstKanban' },
+                    { 'data': 'ReqKanban' },
+                    { 'data': 'Usage' },
+                    { 'data': 'PartQty' },
+                    { 'data': 'LotSize' },
+                    { 'data': 'StockQty' },
+                    { 'data': 'Remarks' }
+                ],
+                fixedColumns: {
+                    leftColumns: 2
+                },
+                "processing": "true",
+                "language": {
+                    "processing": "processing... please wait"
+                },
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    @Html.Raw(ViewBag.ButtonExportHide)
+                }
+                //serverSide: true,
+                filter: false,
+                orderMulti:false
+            });
+
+            oTable.on('order.dt search.dt', function () {
+                oTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+    </script>
+
+    <div class="card text-sm" id="filterForm">
+        <div class="card-body">
+            <div class="btn-group" role="group" style="margin-bottom:10px;">
+                @if (ViewBag.PageAccess.CanAdd)
+                {
+                    <button type="button" class="popup btn btn-primary" id="btnAdd" onclick="showInPopup('@Url.Action("ItemDetail","KanbanRequest",null,Context.Request.Scheme)','Add Request Item')">
+                        <span class="far fa-file" style="padding-right:10px;"></span>Add New Data
+                    </button>
+                }
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    @Html.Raw(ViewBag.ButtonExportHtml)
+                }
+            </div>
+            <table id="tbl" class="display">
+                <thead class="bg-info text-sm">
+                    <tr>
+                        <th>No.</th>
+                        @Html.Raw(ViewBag.ActionColumnHtml)
+                        <th>Part Name</th>
+                        <th>Supplier</th>
+                        <th>Part Number</th>
+                        <th>Est Kanban (Box)</th>
+                        <th>Req Kanban (Box)</th>
+                        <th>Usage</th>
+                        <th>Part Qty</th>
+                        <th>Lot Size</th>
+                        <th>Stock WH</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

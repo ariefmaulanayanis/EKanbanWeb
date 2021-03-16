@@ -1,0 +1,7 @@
+﻿namespace RDLCDesign
+{
+}
+
+namespace RDLCDesign
+{
+}

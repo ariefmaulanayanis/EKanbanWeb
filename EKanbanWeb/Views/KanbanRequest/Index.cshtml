@@ -1,0 +1,211 @@
+﻿@{
+    ViewData["Title"] = "Kanban Request";
+}
+@await Html.PartialAsync("_Scripts")
+<script type="text/javascript">
+    var canEdit ="@ViewBag.PageAccess.CanEdit";
+    var canDelete="@ViewBag.PageAccess.CanDelete";
+
+    $(document).ready(function () {
+        $('#btnSearch').click(function () {
+            var form = $("#frmSearch");
+            form.validate();
+            if (form.valid()) {
+                var partNo = $('#PartNo').val();
+                var lineId = $('#LineId').val();
+                var statusId = $('#StatusId').val();
+                oTable.ajax.url('/KanbanRequest/GetData?partNo=' + partNo + '&lineId=' + lineId + '&statusId=' + statusId);
+                oTable.ajax.reload();
+            }
+            return false;
+        });
+
+        @if ((bool)ViewBag.PageAccess.CanExport == true) {
+            @Html.Raw(ViewBag.ButtonExportJS)
+        }
+
+        var oTable = $('#tbl').DataTable({
+            dom: 'Brtip',
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                <text>
+                buttons:
+                    [
+                        {
+                            extend: 'excel',
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                        },
+                        {
+                            extend: 'pdf', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                        },
+                        {
+                            extend: 'print', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                        }
+                ],
+                </text>
+            }
+            scrollX: true,
+            autoWidth: false,
+            ajax: {
+                url: '/KanbanRequest/GetData?partNo=' + $('#PartNo').val() + '&lineId=' + $('#LineId').val() + '&statusId=' + $('#StatusId').val(),
+                dataSrc: '',
+                type: 'get',
+                dataType: 'json'
+            },
+            columns: [
+                { 'data': null, width:40 },
+                {
+                    'data': null, width:120,
+                    'render': function (data) {
+                        var btnEdit = "";
+                        var btnDelete = "";
+                        var btnPrint = "";
+                        var disabled = "";
+                        if (canEdit == "True") {
+                            var urlEdit = '@Url.Action("Detail","KanbanRequest",null,Context.Request.Scheme)';
+                            urlEdit = urlEdit + '/' + data.KanbanReqId;
+                            btnEdit = btnEdit + "\
+                                <button type='button' class='popup btn btn-default' onclick='$(location).attr(\"href\",\"" + urlEdit + "\")' title='Edit'>\
+                                    <i class='far fa-edit'></i>\
+                                </button>";
+                        }
+                        if (canDelete == "True") {
+                            var urlDelete = '@Url.Action("Delete", "KanbanRequest", null,Context.Request.Scheme)';
+                            urlDelete = urlDelete + '/' + data.KanbanReqId;
+                            disabled = data.StatusId == 1 ? "" : "disabled";
+                            btnDelete = btnDelete + "\
+                                <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlDelete + "\",\"Delete Kanban Request\")' title='Delete' " + disabled + ">\
+                                    <i class='far fa-trash-alt'></i>\
+                                </button>";
+                        }
+                        var urlPrint = '@Url.Action("Print","KanbanRequest",null,Context.Request.Scheme)';
+                        urlPrint = urlPrint + '/' + data.KanbanReqId;
+                        disabled = (data.StatusId != 1 && data.StatusId != 2) ? "" : "disabled";
+                        btnPrint = btnPrint + "\
+                            <button type='button' class='popup btn btn-default' onclick='$(location).attr(\"href\",\"" + urlPrint + "\")' title='Print Trolley Label' " + disabled + ">\
+                                <i class='fas fa-print'></i>\
+                            </button>";
+
+                        return "\
+                        <div class='btn-group'>\
+                        "+ btnEdit + btnDelete + btnPrint +"\
+                        </div>";
+                    }
+                },
+                { 'data': 'TagRequestNo' },
+                {
+                    'data': 'RequestDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                { 'data': 'PartFGNo' },
+                { 'data': 'PartFGName' },
+                { 'data': 'LineNo' },
+                { 'data': 'LineName' },
+                { 'data': 'TrolleyNo' },
+                { 'data': 'StatusName' }
+            ],
+            fixedColumns: {
+                leftColumns: 2
+            },
+            "processing": "true",
+            "language": {
+                "processing": "processing... please wait"
+            },
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                @Html.Raw(ViewBag.ButtonExportHide)
+            }
+            //serverSide: true,
+            filter: false,
+            orderMulti: false
+        });
+
+        oTable.on('order.dt search.dt', function () {
+            oTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+</script>
+
+<div style="width:100%" margin="0 auto" class="tableContainer text-sm">
+    <div class="card" id="filterForm">
+        @Html.Raw(ViewBag.CardHeadFilter)
+        <div class="card-body">
+            <form id="frmSearch" class="form-horizontal text-sm" method="get" asp-action="Index" asp-controller="KanbanRequest">
+                <div class="form-group row">
+                    <label class="col-form-label-sm col-sm-2">Part No:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control text-sm" id="PartNo" />
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <label class="col-form-label-sm col-sm-2">Line:</label>
+                    <div class="col-sm-3">
+                        @if (ViewBag.UserRoleId == 2)
+                        {
+                            <input type="hidden" value="@ViewBag.UserLineId" id="LineId" />
+                            <input type="text" class="form-control text-sm" value="@ViewBag.UserLineName" readonly />
+                        }
+                        else
+                        {
+                            <select id="LineId" asp-items="@ViewBag.Lines" class="form-control chosen-select">
+                                <option value="">All lines...</option>
+                            </select>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label-sm col-sm-2">Status:</label>
+                    <div class="col-sm-3">
+                        <select id="StatusId" asp-items="@ViewBag.Statuses" class="form-control chosen-select">
+                            <option value="">All statuses...</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.Raw(ViewBag.SearchButton)
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" id="filterForm">
+        <div class="card-body">
+            <div class="btn-group" role="group" style="margin-bottom:10px;">
+                @if (ViewBag.PageAccess.CanAdd)
+                {
+                    <button type="button" class="popup btn btn-primary" id="btnAdd" onclick="$(location).attr('href', ('@Url.Action("Detail","KanbanRequest",null,Context.Request.Scheme)'))">
+                        <span class="far fa-file" style="padding-right:10px;"></span>Add New Data
+                    </button>
+                }
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    @Html.Raw(ViewBag.ButtonExportHtml)
+                }
+            </div>
+            <table id="tbl" class="display text-sm">
+                <thead class="bg-info">
+                    <tr>
+                        <th>No.</th>
+                        @Html.Raw(ViewBag.ActionColumnHtml)
+                        <th>Request No</th>
+                        <th>Request Date Time</th>
+                        <th>Part FG No</th>
+                        <th>Part FG Name</th>
+                        <th>Line No</th>
+                        <th>Line Name</th>
+                        <th>Trolley No</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "Trolley Status";
+}
+
+<form method="post" asp-action="SendMail" asp-controller="TrolleyStatus">
+    <div asp-validation-summary="ModelOnly" class="text-danger text-sm"></div>
+    <button type="submit" value="Send Mail">Send Mail</button>
+</form>

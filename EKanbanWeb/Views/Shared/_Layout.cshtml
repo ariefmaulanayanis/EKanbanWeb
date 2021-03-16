@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-Kanban | Dashboard</title>
+    <title>E-Kanban | @ViewData["Title"]</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -11,10 +11,26 @@
     <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/lib/ionicons/ionicons.min.css">
+    <link rel="stylesheet" href="~/lib/chosen_v1.8.7/chosen.min.css">
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/lib/adminlte/css/adminlte.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/lib/moment/moment.min.js"></script>
+    <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/lib/adminlte/js/adminlte.min.js"></script>
+    <script src="~/lib/chosen_v1.8.7/chosen.jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -57,30 +73,14 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-header">MAIN MENU</li>
-                        <li class="nav-item">
-                            <a href="pages/calendar.html" class="nav-link">
-                                <i class="nav-icon fas fa-dolly-flatbed"></i>
-                                <p>Trolley Status</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/kanban.html" class="nav-link">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>Kanban Request</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>Monthly Report</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>Daily Report</p>
-                            </a>
-                        </li>
+                        @{ foreach (EKanbanWeb.ViewModel.MenuViewModel menu in @ViewBag.MenuList)
+                            {
+                <li class="nav-item">
+                    <a href="@menu.LinkUrl" class="nav-link">
+                        <i class="nav-icon fas @menu.Icon"></i>
+                        <p>@menu.MenuName</p>
+                    </a>
+                </li> } }
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -91,7 +91,8 @@
                     </div>
                     <div class="info text-white">
                         <span class="d-block">@ViewBag.UserRealName</span>
-                        <span class="text-xs font-italic">@ViewBag.UserRoleName</span>
+                        <span class="text-xs font-italic">@ViewBag.UserRoleName</span><br />
+                        <span class="text-xs font-italic">@ViewBag.UserLineName</span>
                     </div>
                 </div>
 
@@ -155,22 +156,13 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="~/lib/moment/moment.min.js"></script>
-    <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/lib/adminlte/js/adminlte.min.js"></script>
 </body>
 </html>
+
+<script type="text/javascript">
+    $(".chosen-select").chosen();
+    $(".chosen-single-with-deselect").chosen({ allow_single_deselect: true });
+    $.validator.setDefaults({ ignore: ":hidden:not(select)" });
+</script>
 
 @await Html.PartialAsync("_PopupModal")

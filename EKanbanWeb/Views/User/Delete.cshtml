@@ -1,0 +1,52 @@
+﻿@model EKanbanWeb.Models.SyUser
+@{
+    Layout = null;
+}
+
+<div>Are you sure you want to delete this?</div>
+<div>
+    <hr />
+    <dl class="row">
+        @Html.HiddenFor(a => a.UserId)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.RealName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.RealName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.RoleId)
+        </dt>
+        <dd class="col-sm-9">
+            @ViewBag.RoleName
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LineId)
+        </dt>
+        <dd class="col-sm-9">
+            @ViewBag.LineName
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.IsActive)
+            {
+                <text>yes</text>
+            }
+            else
+            {
+                <text>no</text>
+            }
+        </dd>
+    </dl>
+    <form asp-action="delete" asp-controller="user" method="post" onsubmit="return jQueryAjaxPost(this,'Delete');">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>

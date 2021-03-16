@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsMenu" msprop:Generator_TableClassName="dsMenuDataTable" msprop:Generator_TableVarName="tabledsMenu" msprop:Generator_TablePropName="dsMenu" msprop:Generator_RowDeletingName="dsMenuRowDeleting" msprop:Generator_RowChangingName="dsMenuRowChanging" msprop:Generator_RowEvHandlerName="dsMenuRowChangeEventHandler" msprop:Generator_RowDeletedName="dsMenuRowDeleted" msprop:Generator_UserTableName="dsMenu" msprop:Generator_RowChangedName="dsMenuRowChanged" msprop:Generator_RowEvArgName="dsMenuRowChangeEvent" msprop:Generator_RowClassName="dsMenuRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MenuId" msprop:Generator_ColumnVarNameInTable="columnMenuId" msprop:Generator_ColumnPropNameInRow="MenuId" msprop:Generator_ColumnPropNameInTable="MenuIdColumn" msprop:Generator_UserColumnName="MenuId" type="xs:string" minOccurs="0" />
+              <xs:element name="MenuName" msprop:Generator_ColumnVarNameInTable="columnMenuName" msprop:Generator_ColumnPropNameInRow="MenuName" msprop:Generator_ColumnPropNameInTable="MenuNameColumn" msprop:Generator_UserColumnName="MenuName" type="xs:string" minOccurs="0" />
+              <xs:element name="LinkUrl" msprop:Generator_ColumnVarNameInTable="columnLinkUrl" msprop:Generator_ColumnPropNameInRow="LinkUrl" msprop:Generator_ColumnPropNameInTable="LinkUrlColumn" msprop:Generator_UserColumnName="LinkUrl" type="xs:string" minOccurs="0" />
+              <xs:element name="Icon" msprop:Generator_ColumnVarNameInTable="columnIcon" msprop:Generator_ColumnPropNameInRow="Icon" msprop:Generator_ColumnPropNameInTable="IconColumn" msprop:Generator_UserColumnName="Icon" type="xs:string" minOccurs="0" />
+              <xs:element name="Sort" msprop:Generator_ColumnVarNameInTable="columnSort" msprop:Generator_ColumnPropNameInRow="Sort" msprop:Generator_ColumnPropNameInTable="SortColumn" msprop:Generator_UserColumnName="Sort" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

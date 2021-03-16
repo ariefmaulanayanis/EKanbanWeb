@@ -12,9 +12,11 @@ namespace EKanbanWeb.Models
         [Key]
         public short UserId { get; set; }
         [Required]
-        [StringLength(25)]
+        [StringLength(50)]
         [DisplayName("Username")]
         public string UserName { get; set; }
+        [Required]
+        [StringLength(30)]
         public string Password { get; set; }
         [Required]
         [StringLength(50)]
@@ -23,6 +25,8 @@ namespace EKanbanWeb.Models
         [Required]
         [DisplayName("Role")]
         public byte RoleId { get; set; }
+        [DisplayName("Line")]
+        public int? LineId { get; set; }
         [Required]
         [DisplayName("Active")]
         public bool IsActive { get; set; }

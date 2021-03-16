@@ -1,0 +1,90 @@
+2021-03-16T08:49:54.3475786+07:00 800000b8-0001-fe00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T09:12:38.6730450+07:00 80000161-0004-fa00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T09:13:57.0576975+07:00 80000100-0005-fc00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T09:36:37.9758417+07:00 80000172-0002-fc00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T10:05:56.1704390+07:00 80000078-0003-fb00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T10:12:38.1325496+07:00 8000013b-0000-fa00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T10:13:01.1497924+07:00 80000020-0003-f600-b63f-84710c7967bb [ERR] Message: Nullable object must have a value.
+Data: System.Collections.ListDictionaryInternal
+Source: System.Private.CoreLib
+StackTrace:    at System.Nullable`1.get_Value()
+   at EKanbanWeb.Controllers.KanbanRequestController.SetViewBag(KanbanRequest data) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 105
+   at EKanbanWeb.Controllers.KanbanRequestController.Detail(Int32 id) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 90
+InnerException:  (a2afb74f)
+2021-03-16T10:17:28.0570515+07:00 800000f4-0004-f600-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T10:17:51.7935905+07:00 80000080-0006-f500-b63f-84710c7967bb [ERR] Message: Nullable object must have a value.
+Data: System.Collections.ListDictionaryInternal
+Source: System.Private.CoreLib
+StackTrace:    at System.Nullable`1.get_Value()
+   at EKanbanWeb.Controllers.KanbanRequestController.SetViewBag(KanbanRequest data) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 106
+   at EKanbanWeb.Controllers.KanbanRequestController.Detail(Int32 id) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 91
+InnerException:  (515461ca)
+2021-03-16T10:18:18.5578953+07:00 80000080-0006-f500-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AspNetCore.Views_KanbanRequest_Detail.<ExecuteAsync>b__29_0() in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Views\KanbanRequest\Detail.cshtml:line 53
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(Boolean useCachedResult, HtmlEncoder encoder)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCore.Views_KanbanRequest_Detail.ExecuteAsync() in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Views\KanbanRequest\Detail.cshtml:line 16
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-03-16T10:19:02.6981894+07:00 80000133-0002-fe00-b63f-84710c7967bb [ERR] Message: Nullable object must have a value.
+Data: System.Collections.ListDictionaryInternal
+Source: System.Private.CoreLib
+StackTrace:    at System.Nullable`1.get_Value()
+   at EKanbanWeb.Controllers.KanbanRequestController.SetViewBag(KanbanRequest data) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 106
+   at EKanbanWeb.Controllers.KanbanRequestController.Detail(Int32 id) in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Controllers\KanbanRequestController.cs:line 91
+InnerException:  (515461ca)
+2021-03-16T10:19:05.3238651+07:00 80000133-0002-fe00-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AspNetCore.Views_KanbanRequest_Detail.<ExecuteAsync>b__29_0() in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Views\KanbanRequest\Detail.cshtml:line 53
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(Boolean useCachedResult, HtmlEncoder encoder)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCore.Views_KanbanRequest_Detail.ExecuteAsync() in D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\Views\KanbanRequest\Detail.cshtml:line 16
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-03-16T10:20:35.6441850+07:00 80000020-0006-f300-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)
+2021-03-16T10:36:03.6590162+07:00 80000192-0001-ff00-b63f-84710c7967bb [WRN] No type was specified for the decimal property '"Usage"' on entity type '"MsPartStructure"'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'. (5c92c1c4)

@@ -12,5 +12,7 @@ namespace EKanbanWeb.ViewModel
         public string RealName { get; set; }
         public short RoleId { get; set; }
         public string RoleName { get; set; }
+        public int? LineId { get; set; }
+        public string LineName { get; set; }
     }
 }

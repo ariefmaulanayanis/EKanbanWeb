@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using EKanbanWeb.ViewModels;
 using EKanbanWeb.Helpers;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace EKanbanWeb.Controllers
 {
@@ -18,10 +22,18 @@ namespace EKanbanWeb.Controllers
     {
         private EKanbanWebDBContext DbContext;
         private LoginInfo loginInfo;
-        public AccountController(EKanbanWebDBContext context)
+        private SqlHelper SqlHelp { get; set; }
+
+        //public AccountController(EKanbanWebDBContext context)
+        //{
+        //    DbContext = context;
+        //    loginInfo = new LoginInfo();
+        //}
+        public AccountController(EKanbanWebDBContext context, IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             DbContext = context;
             loginInfo = new LoginInfo();
+            SqlHelp = new SqlHelper(configuration, hostEnvironment);
         }
 
         public IActionResult Login()
@@ -58,13 +70,16 @@ namespace EKanbanWeb.Controllers
             {
                 //store user info in session
                 SyRole role = DbContext.SyRole.FirstOrDefault(a => a.RoleId == user.RoleId);
+                MsLine line = DbContext.MsLine.FirstOrDefault(a => a.LineId == user.LineId);
                 var loginInfo = new LoginInfo
                 {
                     UserId = user.UserId,
                     UserName = user.UserName,
                     RealName = user.RealName,
                     RoleId = user.RoleId,
-                    RoleName = role == null ? "" : role.RoleName
+                    RoleName = role == null ? "-" : role.RoleName,
+                    LineId = user.LineId,
+                    LineName = line == null ? "-" : line.LineName
                 };
 
                 var serialisedLoginInfo = JsonConvert.SerializeObject(loginInfo);
@@ -85,9 +100,23 @@ namespace EKanbanWeb.Controllers
             ViewBag.UserRoleName = loginInfo.RoleName;
         }
 
+        private void GetMenu()
+        {
+            string sp = "sp_GetUserMenu";
+            List<SqlParameter> param = new List<SqlParameter>
+            {
+                new SqlParameter("@roleId", loginInfo.RoleId)
+            };
+            DataTable dt = SqlHelp.ExecQuery(sp, param);
+            List<MenuViewModel> menuList = SqlHelp.ConvertToList<MenuViewModel>(dt);
+
+            ViewBag.MenuList = menuList;
+        }
+
         public IActionResult ChangePassword()
         {
             GetLoginInfo();
+            GetMenu();
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);
         }
@@ -150,6 +179,7 @@ namespace EKanbanWeb.Controllers
         public IActionResult Logout()
         {
             GetLoginInfo();
+            GetMenu();
             return View();
         }
 
