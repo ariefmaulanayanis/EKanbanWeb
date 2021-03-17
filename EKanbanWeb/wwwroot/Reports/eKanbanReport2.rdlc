@@ -6,25 +6,25 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.72392cm</Width>
+              <Width>0.61809cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.08864cm</Width>
+              <Width>2.21211cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.43649cm</Width>
+              <Width>2.31302cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.77139cm</Width>
+              <Width>0.71847cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.19809cm</Width>
+              <Width>1.1099cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.27586cm</Width>
+              <Width>1.24058cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.46192cm</Width>
+              <Width>1.13031cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -282,7 +282,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>RowNumber</rd:DefaultName>
@@ -314,7 +316,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>PartNo</rd:DefaultName>
@@ -346,7 +350,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>PartName</rd:DefaultName>
@@ -378,7 +384,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>ReqKanban</rd:DefaultName>
@@ -410,7 +418,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>LotSize</rd:DefaultName>
@@ -442,7 +452,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Zone</rd:DefaultName>
@@ -474,7 +486,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Supplier</rd:DefaultName>
@@ -516,14 +530,16 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatColumnHeaders>true</RepeatColumnHeaders>
+        <RepeatRowHeaders>true</RepeatRowHeaders>
         <DataSetName>dsKanbanRequestMasterDetail</DataSetName>
         <Top>0.03528cm</Top>
         <Left>0.0635cm</Left>
         <Height>0.95306cm</Height>
-        <Width>9.95631cm</Width>
+        <Width>9.34248cm</Width>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Style>Solid</Style>
           </Border>
         </Style>
       </Tablix>
@@ -531,7 +547,7 @@
     <Height>1.12889cm</Height>
     <Style />
   </Body>
-  <Width>10.11622cm</Width>
+  <Width>9.5cm</Width>
   <Page>
     <PageHeader>
       <Height>3.68653cm</Height>
@@ -968,7 +984,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1001,7 +1019,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1034,7 +1054,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1063,11 +1085,12 @@
                   <Value>=Fields!LineNo.Value</Value>
                   <Style>
                     <FontSize>7pt</FontSize>
-                    <Format>dd-MMM-yyyy</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1100,7 +1123,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1129,11 +1154,12 @@
                   <Value>=Fields!LotNumber.Value</Value>
                   <Style>
                     <FontSize>7pt</FontSize>
-                    <Format>dd-MMM-yyyy</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>KanbanReqId</rd:DefaultName>
@@ -1178,7 +1204,7 @@
           <Top>3.10612cm</Top>
           <Left>3.81093cm</Left>
           <Height>0.46242cm</Height>
-          <Width>2.94569cm</Width>
+          <Width>2.39888cm</Width>
           <ZIndex>19</ZIndex>
           <Style>
             <Border>
@@ -1197,7 +1223,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Kanban Request No : </Value>
+                  <Value>Kanban Req No : </Value>
                   <Style>
                     <FontSize>7pt</FontSize>
                   </Style>
@@ -1214,9 +1240,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox20</rd:DefaultName>
           <Top>3.10612cm</Top>
-          <Left>6.80248cm</Left>
+          <Left>6.24509cm</Left>
           <Height>0.46242cm</Height>
-          <Width>3.21733cm</Width>
+          <Width>3.10797cm</Width>
           <ZIndex>20</ZIndex>
           <Style>
             <Border>
@@ -1228,6 +1254,22 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Image Name="QRImage">
+          <Source>Database</Source>
+          <Value>=Fields!QRImage.Value</Value>
+          <MIMEType>image/bmp</MIMEType>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.0635cm</Top>
+          <Left>6.95306cm</Left>
+          <Height>2.4cm</Height>
+          <Width>2.4cm</Width>
+          <ZIndex>21</ZIndex>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+          </Style>
+        </Image>
       </ReportItems>
       <Style>
         <Border>
@@ -1236,7 +1278,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>2.24839cm</Height>
+      <Height>2.31895cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1265,10 +1307,46 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>ExecutionTime</rd:DefaultName>
-          <Top>0.06703cm</Top>
-          <Left>5.31255cm</Left>
+          <Top>0.09878cm</Top>
+          <Left>4.75163cm</Left>
           <Height>0.51181cm</Height>
-          <Width>4.70726cm</Width>
+          <Width>4.65434cm</Width>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="ExecutionTime2">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Warehouse</Value>
+                  <Style>
+                    <FontSize>6pt</FontSize>
+                    <Format>dd-MMM-yyyy hh:mm:ss tt</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>ExecutionTime</rd:DefaultName>
+          <Top>0.09878cm</Top>
+          <Left>0.06351cm</Left>
+          <Height>0.51181cm</Height>
+          <Width>2.81255cm</Width>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1317,53 +1395,17 @@
             </Textbox>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
-          <Top>0.58237cm</Top>
-          <Left>0.0635cm</Left>
+          <Top>0.61412cm</Top>
+          <Left>0.06351cm</Left>
           <Height>1.57783cm</Height>
-          <Width>2.81255cm</Width>
-          <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-          </Style>
-        </Rectangle>
-        <Textbox Name="ExecutionTime2">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>Warehouse</Value>
-                  <Style>
-                    <FontSize>6pt</FontSize>
-                    <Format>dd-MMM-yyyy hh:mm:ss tt</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>ExecutionTime</rd:DefaultName>
-          <Top>0.06703cm</Top>
-          <Left>0.0635cm</Left>
-          <Height>0.51181cm</Height>
           <Width>2.81255cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
-            <VerticalAlign>Middle</VerticalAlign>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
           </Style>
-        </Textbox>
+        </Rectangle>
       </ReportItems>
       <Style>
         <Border>
@@ -1371,12 +1413,12 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageHeight>17cm</PageHeight>
+    <PageHeight>15cm</PageHeight>
     <PageWidth>10cm</PageWidth>
     <LeftMargin>0.5cm</LeftMargin>
-    <RightMargin>0.5cm</RightMargin>
+    <RightMargin>0cm</RightMargin>
     <TopMargin>0.5cm</TopMargin>
-    <BottomMargin>0.5cm</BottomMargin>
+    <BottomMargin>0cm</BottomMargin>
     <ColumnSpacing>1.27cm</ColumnSpacing>
     <Style />
   </Page>
@@ -1476,10 +1518,14 @@
           <DataField>Supplier</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="QRImage">
+          <DataField>QRImage</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsEKanbanReport2</rd:DataSetName>
-        <rd:SchemaPath>D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\RDLCDesign\dsEKanbanReport2.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\01_WORKS\SAKURA\DMIA\EKanban\Source Code\EKanbanWeb\EKanbanWeb\ReportDataSet\dsEKanbanReport2.xsd</rd:SchemaPath>
         <rd:TableName>v_KanbanRequestMasterDetail</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -1487,6 +1533,7 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>2c501917-2791-4aa2-a1a4-8b148fcf0d6b</rd:ReportID>
 </Report>

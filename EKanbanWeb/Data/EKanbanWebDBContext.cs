@@ -22,6 +22,7 @@ namespace EKanbanWeb.Data
         public DbSet<MsPartFG> MsPartFG { get; set; }
         public DbSet<MsPart> MsPart { get; set; }
         public DbSet<MsPartStructure> MsPartStructure { get; set; }
+        public DbSet<StockWH> StockWH { get; set; }
         public DbSet<KanbanRequest> KanbanRequest { get; set; }
         public DbSet<KanbanReqItem> KanbanReqItem { get; set; }
     }

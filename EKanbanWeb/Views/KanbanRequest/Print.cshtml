@@ -1,0 +1,97 @@
+﻿@model EKanbanWeb.ViewModel.EKanbanReport
+@{
+    Layout = null;
+}
+
+<title>EKarton Print</title>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jasonday-printThis/printThis.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#print_area').printThis({
+            pageTitle: "Material Request"
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="~/css/print.css">
+
+<div id="print_area" class="bg-white" style="font-family:Arial;width:10cm;">
+    <div id="break_page" style="page-break-after: always; display: block; position: relative;">
+        <table width="100%" style="font-size: 10px; border: solid 1px;margin-bottom:0.1cm">
+            <tr>
+                <td colspan="4" width="70%" style="font-size:12px;font-weight:bold;text-align:center">MATERIAL REQUEST</td>
+                <td rowspan="6" width="30%" style="vertical-align:bottom">
+                    <qrcode content="@Model.vKanbanRequest.QRCode" width="100" height="100" />
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Tanggal Request</td>
+                <td width="5%">:</td>
+                <td colspan="2">@Model.vKanbanRequest.RequestDateTime.ToString("dd-MMM-yyyy")</td>
+            </tr>
+            <tr>
+                <td>PIC Line</td>
+                <td>:</td>
+                <td colspan="2">@Model.vKanbanRequest.LeaderName</td>
+            </tr>
+            <tr>
+                <td>Nama Line</td>
+                <td>:</td>
+                <td colspan="2">@Model.vKanbanRequest.LineName</td>
+            </tr>
+            <tr>
+                <td>Line No.</td>
+                <td>:</td>
+                <td colspan="2">@Model.vKanbanRequest.LineNo</td>
+            </tr>
+            <tr>
+                <td>FG Part No.</td>
+                <td>:</td>
+                <td colspan="2">@Model.vKanbanRequest.PartFGNo</td>
+            </tr>
+            <tr>
+                <td>Jumlah Lot Prod.</td>
+                <td>:</td>
+                <td width="20%">@Model.vKanbanRequest.LotNumber</td>
+                <td>Trolley No. : @Model.vKanbanRequest.TrolleyNo</td>
+                <td>Kanban Request No : @Model.vKanbanRequest.TagRequestNo</td>
+            </tr>
+        </table>
+        <table width="100%" style="font-size: 9px; border: solid 1px;margin-bottom:0.1cm">
+            <tr style="font-weight:bold">
+                <td width="5%">No.</td>
+                <td width="20%">Part No</td>
+                <td width="30%">Part Name</td>
+                <td width="8%">KBN</td>
+                <td width="8%">Lot Size</td>
+                <td width="10%">Zone</td>
+                <td>Supplier</td>
+            </tr>
+            @foreach (EKanbanWeb.ViewModel.EKanbanReportItem item in Model.ItemList)
+            {
+                <tr>
+                    <td>@item.RowNumber</td>
+                    <td>@item.PartNo</td>
+                    <td>@item.PartName</td>
+                    <td>@item.ReqKanban</td>
+                    <td>@item.LotSize</td>
+                    <td>@item.Zone</td>
+                    <td>@item.Supplier</td>
+                </tr>
+            }
+        </table>
+        <table width="100%" style="font-size: 10px; padding:0px; border-collapse:collapse;" cellpadding="0">
+            <tr style="height:0.5cm">
+                <td width="25%" style="border:solid 1px;text-align:center">Warehouse</td>
+                <td></td>
+                <td width="46%" style="border:solid 1px;text-align:center">Dicetak: @DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt")</td>
+            </tr>
+            <tr style="height:2cm">
+                <td style="border: solid 1px; vertical-align: top;text-align:center">
+                    <div style="padding:0.1cm">Checker</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

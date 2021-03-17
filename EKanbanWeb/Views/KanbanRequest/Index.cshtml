@@ -84,7 +84,7 @@
                         urlPrint = urlPrint + '/' + data.KanbanReqId;
                         disabled = (data.StatusId != 1 && data.StatusId != 2) ? "" : "disabled";
                         btnPrint = btnPrint + "\
-                            <button type='button' class='popup btn btn-default' onclick='$(location).attr(\"href\",\"" + urlPrint + "\")' title='Print Trolley Label' " + disabled + ">\
+                            <button type='button' class='popup btn btn-default' onclick='window.open(\"" + urlPrint + "\",\"_blank\")' title='Print Trolley Label' " + disabled + ">\
                                 <i class='fas fa-print'></i>\
                             </button>";
 

@@ -1,6 +1,7 @@
 ﻿@model EKanbanWeb.Models.KanbanRequest
 @{
     ViewData["Title"] = "Kanban Request Detail";
+    bool editable = (Model.StatusId == 1 || Model.StatusId == 3) && ViewBag.UserRoleId != 3;
 }
 
 <script type="text/javascript">
@@ -61,10 +62,18 @@
             <div class="form-group-sm row" style="margin-bottom:5px">
                 <label asp-for="PartFGId" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    <select asp-for="PartFGId" asp-items="@ViewBag.PartFGList" class="form-control chosen-select">
-                        <option value="">Please select part FG...</option>
-                    </select>
-                    <span asp-validation-for="PartFGId" class="text-danger text-sm"></span>
+                    @if (editable)
+                    {
+                        <select asp-for="PartFGId" asp-items="@ViewBag.PartFGList" class="form-control chosen-select">
+                            <option value="">Please select part FG...</option>
+                        </select>
+                        <span asp-validation-for="PartFGId" class="text-danger text-sm"></span>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="PartFGId" value="@Model.PartFGId" />
+                        <input type="text" class="form-control text-sm" value="@ViewBag.PartFGNo" id="PartFGName" readonly />
+                    }
                 </div>
                 <div class="col-sm-1"></div>
                 <label class="col-form-label-sm col-sm-2">Part FG Name</label>
@@ -86,14 +95,28 @@
             <div class="form-group-sm row" style="margin-bottom:5px">
                 <label asp-for="LotNumber" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control text-sm" asp-for="LotNumber" />
-                    <span asp-validation-for="LotNumber" class="text-danger text-sm"></span>
+                    @if (editable)
+                    {
+                        <input type="number" class="form-control text-sm" asp-for="LotNumber" />
+                        <span asp-validation-for="LotNumber" class="text-danger text-sm"></span>
+                    }
+                    else
+                    {
+                        <input type="number" class="form-control text-sm" asp-for="LotNumber" readonly />
+                    }
                 </div>
                 <div class="col-sm-1"></div>
                 <label asp-for="TrolleyNo" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control text-sm" asp-for="TrolleyNo" />
-                    <span asp-validation-for="TrolleyNo" class="text-danger text-sm"></span>
+                    @if (editable)
+                    {
+                        <input type="number" class="form-control text-sm" asp-for="TrolleyNo" />
+                        <span asp-validation-for="TrolleyNo" class="text-danger text-sm"></span>
+                    }
+                    else
+                    {
+                        <input type="number" class="form-control text-sm" asp-for="TrolleyNo" readonly />
+                    }
                 </div>
             </div>
             <div class="form-group-sm row" style="margin-bottom:5px">
@@ -118,17 +141,19 @@
                     <input type="text" class="form-control text-sm" asp-for="PickerName" readonly />
                 </div>
             </div>
-            <div class="form-group-sm row" style="margin-bottom:5px">
-                <label asp-for="CancelNote" class="col-form-label-sm col-sm-2"></label>
-                <div class="col-sm-9">
-                    <textarea class="form-control text-sm" rows="2" asp-for="CancelNote"></textarea>
-                    <span asp-validation-for="CancelNote" class="text-danger text-sm"></span>
+            @if (Model.StatusId == 2)
+            {
+                <div class="form-group-sm row" style="margin-bottom:5px">
+                    <label asp-for="CancelNote" class="col-form-label-sm col-sm-2"></label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control text-sm" rows="2" asp-for="CancelNote" readonly></textarea>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
     <div class="form-group">
-        @{ var floatright = "float-right"; }
+        @{ var floatright = ""; }
         @if (ViewBag.UserRoleId == 1 || ViewBag.UserRoleId == 2) //admin atau manufacture
         {
             @if (Model.StatusId == 1)
@@ -160,7 +185,6 @@
         </button>
     </div>
 </form>
-
 @if (ViewBag.Action == "edit")
 {
     @await Html.PartialAsync("_Scripts")
@@ -183,15 +207,48 @@
                         [
                             {
                                 extend: 'excel',
-                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                @if (editable)
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10] }
+                                    </text>
+                                }
                             },
                             {
                                 extend: 'pdf', orientation: 'landscape', pageSize: 'A4',
-                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                @if (editable)
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10] }
+                                    </text>
+                                }
                             },
                             {
                                 extend: 'print', orientation: 'landscape', pageSize: 'A4',
-                                exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                @if (editable)
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                    exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10] }
+                                    </text>
+                                }
                             }
                         ],
                     </text>
@@ -206,34 +263,30 @@
                 },
                 columns: [
                     { 'data': null },
+                    @if(editable == true)
                     {
-                        'data': null,
-                        'render': function (data, type, row) {
-                            var btnEdit = "";
-                            var btnDelete = "";
-                            if (canEdit == "True") {
-                                var urlEdit = '@Url.Action("ItemDetail", "KanbanRequest", null,Context.Request.Scheme)';
-                                urlEdit = urlEdit + '/' + row.ReqItemId;
-                                btnEdit = btnEdit + "\
-                                    <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlEdit + "\",\"Edit Kanban Item\")' title = 'Edit' >\
-                                        <i class='far fa-edit'></i>\
-                                    </button>";
-                            }
-                            if (canDelete == "True") {
-                                var urlDelete = '@Url.Action("ItemDelete", "KanbanRequest", null,Context.Request.Scheme)';
-                                urlDelete = urlDelete + '/' + row.ReqItemId;
-                                btnDelete = btnDelete + "\
-                                    <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlDelete + "\",\"Delete Kanban Item\")' title = 'Delete' >\
-                                        <i class='far fa-edit'></i>\
-                                    </button>";
-                            }
-                            return "\
-                                <div class='btn-group'>\
-                                " + btnEdit + btnDelete + "\
-                                </div>";
+                        <text>
+                        {
+                            'data': null,
+                            'render': function (data, type, row) {
+                                var btnEdit = "";
+                                if (canEdit == "True") {
+                                    var urlEdit = '@Url.Action("ItemDetail", "KanbanRequest", null,Context.Request.Scheme)';
+                                    urlEdit = urlEdit + '/' + row.ReqItemId + '?kanbanReqId=' + row.KanbanReqId;
+                                    btnEdit = btnEdit + "\
+                                        <button type='button' class='popup btn btn-default' onclick='showInPopup(\"" + urlEdit + "\",\"Edit Kanban Item\")' title = 'Edit' >\
+                                            <i class='far fa-edit'></i>\
+                                        </button>";
+                                }
+                                return "\
+                                    <div class='btn-group'>\
+                                    " + btnEdit + "\
+                                    </div>";
+                            },
+                            @Html.Raw(ViewBag.ActionColumnVisible)
                         },
-                        @Html.Raw(ViewBag.ActionColumnVisible)
-                    },
+                        </text>
+                    }
                     { 'data': 'PartName' },
                     { 'data': 'Supplier' },
                     { 'data': 'PartNo' },
@@ -272,12 +325,6 @@
     <div class="card text-sm" id="filterForm">
         <div class="card-body">
             <div class="btn-group" role="group" style="margin-bottom:10px;">
-                @if (ViewBag.PageAccess.CanAdd)
-                {
-                    <button type="button" class="popup btn btn-primary" id="btnAdd" onclick="showInPopup('@Url.Action("ItemDetail","KanbanRequest",null,Context.Request.Scheme)','Add Request Item')">
-                        <span class="far fa-file" style="padding-right:10px;"></span>Add New Data
-                    </button>
-                }
                 @if ((bool)ViewBag.PageAccess.CanExport == true)
                 {
                     @Html.Raw(ViewBag.ButtonExportHtml)
@@ -287,7 +334,10 @@
                 <thead class="bg-info text-sm">
                     <tr>
                         <th>No.</th>
-                        @Html.Raw(ViewBag.ActionColumnHtml)
+                        @if (editable == true)
+                        {
+                            @Html.Raw(ViewBag.ActionColumnHtml)
+                        }
                         <th>Part Name</th>
                         <th>Supplier</th>
                         <th>Part Number</th>

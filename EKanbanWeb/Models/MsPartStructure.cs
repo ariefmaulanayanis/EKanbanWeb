@@ -12,7 +12,7 @@ namespace EKanbanWeb.Models
         public int PartStructId { get; set; }
         public int PartFGId { get; set; }
         public int PartId { get; set; }
-        public float Usage { get; set; }
+        public double Usage { get; set; }
         public string Remarks { get; set; }
         public DateTime? SyncDate { get; set; }
     }

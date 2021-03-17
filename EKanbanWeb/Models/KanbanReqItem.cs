@@ -12,8 +12,9 @@ namespace EKanbanWeb.Models
         public int ReqItemId { get; set; }
         public int KanbanReqId { get; set; }
         public int PartId { get; set; }
-        public int? EstKanban { get; set; }
-        public int? ReqKanban { get; set; }
+        public int EstKanban { get; set; }
+        [Required]
+        public int ReqKanban { get; set; }
         public string Remarks { get; set; }
         public DateTime? InsertDate { get; set; }
         public short? InsertBy { get; set; }

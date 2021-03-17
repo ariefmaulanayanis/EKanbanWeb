@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EKanbanWeb.Models.KanbanReqItem
 @{
+    Layout = null;
 }
+
+<form asp-action="ItemSave" asp-controller="KanbanRequest" method="post" id="popupForm" onsubmit="return jQueryAjaxPost(this,'Save');" autocomplete="off">
+    <input type="hidden" asp-for="ReqItemId" value="@Model.ReqItemId" />
+    <div class="row">
+        <div class="col-sm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table width="100%" class="text-sm">
+                <tr>
+                    <td width="150px"><label class="control-label">Part Name</label></td>
+                    <td>
+                        <input type="hidden" asp-for="PartId" />
+                        <input type="text" class="form-control text-sm" value="@ViewBag.PartName" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="control-label">Supplier</label></td>
+                    <td>
+                        <input type="text" class="form-control text-sm" value="@ViewBag.Supplier" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="control-label">Part No</label></td>
+                    <td>
+                        <input type="text" class="form-control text-sm" value="@ViewBag.PartNo" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="ReqKanban" class="control-label"></label></td>
+                    <td>
+                        <input type="number" class="form-control text-sm" asp-for="ReqKanban" />
+                        <span asp-validation-for="ReqKanban" class="text-danger text-sm"></span>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <div class="form-group">
+                <button type="submit" class="popup btn btn-primary" id="btnSave">
+                    <span class="far fa-save" style="padding-right:10px;"></span>Save Data
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

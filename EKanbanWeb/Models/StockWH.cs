@@ -10,8 +10,8 @@ namespace EKanbanWeb.Models
     {
         [Key]
         public int StockId { get; set; }
-        public int PartNo { get; set; }
-        public int StockQty { get; set; }
-        public int SyncDate { get; set; }
+        public string PartNo { get; set; }
+        public double StockQty { get; set; }
+        public DateTime SyncDate { get; set; }
     }
 }

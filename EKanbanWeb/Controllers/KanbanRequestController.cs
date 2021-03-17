@@ -1,6 +1,8 @@
 ﻿using EKanbanWeb.Data;
 using EKanbanWeb.Helpers;
 using EKanbanWeb.Models;
+using EKanbanWeb.Models.View;
+using EKanbanWeb.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -115,6 +117,7 @@ namespace EKanbanWeb.Controllers
             MsPartFG partFG = DbContext.MsPartFG.Where(a => a.PartFGId == data.PartFGId).FirstOrDefault();
             if (partFG != null)
             {
+                ViewBag.PartFGNo = partFG.PartFGNo;
                 ViewBag.PartFGName = partFG.PartFGName;
                 MsLine line = DbContext.MsLine.Where(a => a.LineId == partFG.LineId).FirstOrDefault();
                 if (line != null)
@@ -211,6 +214,8 @@ namespace EKanbanWeb.Controllers
                         model.InsertDate = DateTime.Now;
                         model.InsertBy = LoginInfo.UserId;
                         DbContext.KanbanRequest.Add(model);
+                        DbContext.SaveChanges();
+                        GenerateItem(model.KanbanReqId, model.PartFGId, model.LotNumber);
                     }
                     else
                     {
@@ -224,8 +229,8 @@ namespace EKanbanWeb.Controllers
                         data.EditDate = DateTime.Now;
                         data.EditBy = LoginInfo.UserId;
                         DbContext.KanbanRequest.Update(data);
+                        DbContext.SaveChanges();
                     }
-                    DbContext.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -251,6 +256,38 @@ namespace EKanbanWeb.Controllers
             IndexPrep();
             SetViewBag(model);
             return View(model);
+        }
+
+        private void GenerateItem(int kanbanReqId, int partFGId, int lotNumber)
+        {
+            List<MsPartStructure> partStructs = DbContext.MsPartStructure.Where(a => a.PartFGId == partFGId).ToList();
+            foreach(MsPartStructure partStruct in partStructs)
+            {
+                KanbanReqItem item = new KanbanReqItem();
+                item.KanbanReqId = kanbanReqId;
+                item.PartId = partStruct.PartId;
+
+                double usage = partStruct.Usage;
+                double partNum = lotNumber * usage;
+
+                item.EstKanban = 0;
+                item.ReqKanban = 0;
+
+                MsPart part = DbContext.MsPart.Where(a => a.PartId == partStruct.PartId).FirstOrDefault();
+                if (part != null)
+                {
+                    item.EstKanban = (int)Math.Ceiling(partNum / part.LotSize);
+
+                    StockWH stock = DbContext.StockWH.Where(a => a.PartNo == part.PartNo).FirstOrDefault();
+                    if (stock != null)
+                    {
+                        item.ReqKanban = partNum < stock.StockQty ? item.EstKanban : (int)Math.Floor(stock.StockQty / part.LotSize);
+                    }
+                }
+
+                DbContext.KanbanReqItem.Add(item);
+                DbContext.SaveChanges();
+            }
         }
 
         private int GenerateReqNo()
@@ -326,6 +363,90 @@ namespace EKanbanWeb.Controllers
             }
             else return NotFound();
             return Json(new { status });
+        }
+
+        public IActionResult Print(int id)
+        {
+            IndexPrep();
+            var dt = new DataTable();
+            string sp = "sp_KanbanReport";
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter("@kanbanReqId", id));
+            dt = SqlHelp.ExecQuery(sp, param);
+            List<vKanbanRequest> viewlist = SqlHelp.ConvertToList<vKanbanRequest>(dt);
+
+            vKanbanRequest vKanban = new vKanbanRequest();
+            EKanbanReport model = new EKanbanReport();
+            if (viewlist != null)
+            {
+                vKanban = viewlist[0];
+                model.vKanbanRequest = vKanban;
+
+                //item list
+                sp = "sp_KanbanReportItem";
+                param = new List<SqlParameter>();
+                param.Add(new SqlParameter("@kanbanReqId", id));
+                dt = SqlHelp.ExecQuery(sp, param);
+                List<EKanbanReportItem> itemlist = SqlHelp.ConvertToList<EKanbanReportItem>(dt);
+                model.ItemList = itemlist;
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ItemDetail(int id, int kanbanReqId)
+        {
+            try
+            {
+                KanbanReqItem data = DbContext.KanbanReqItem.Where(a => a.ReqItemId == id).FirstOrDefault();
+                if (data == null)
+                {
+                    data = new KanbanReqItem();
+                    data.KanbanReqId = kanbanReqId;
+                }
+                SetViewBagItem(data);
+                return View(data);
+            }
+            catch (Exception e)
+            {
+                LogHelp.WriteErrorLog(e);
+            }
+            return View();
+        }
+
+        private void SetViewBagItem(KanbanReqItem data)
+        {
+            MsPart part = DbContext.MsPart.Where(a => a.PartId == data.PartId).FirstOrDefault();
+            if (part != null)
+            {
+                ViewBag.PartName = part.PartName;
+                ViewBag.PartNo = part.PartNo;
+                ViewBag.Supplier = part.Supplier;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ItemSave(KanbanReqItem model)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+                KanbanReqItem data = DbContext.KanbanReqItem.Where(a => a.ReqItemId == model.ReqItemId).FirstOrDefault();
+                data.ReqKanban = model.ReqKanban;
+                data.EditDate = DateTime.Now;
+                data.EditBy = LoginInfo.UserId;
+                DbContext.KanbanReqItem.Update(data);
+                DbContext.SaveChanges();
+                status = true;
+                return Json(new { status });
+            }
+            else
+            {
+                SetViewBagItem(model);
+                return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "ItemDetail", model) });
+            }
         }
     }
 }
