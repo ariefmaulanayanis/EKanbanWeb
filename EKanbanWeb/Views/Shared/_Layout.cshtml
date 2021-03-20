@@ -30,6 +30,7 @@
     <!-- AdminLTE App -->
     <script src="~/lib/adminlte/js/adminlte.min.js"></script>
     <script src="~/lib/chosen_v1.8.7/chosen.jquery.min.js"></script>
+    <script src="~/js/session-timeout.js"></script>
     <script src="~/js/site.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -163,6 +164,12 @@
     $(".chosen-select").chosen();
     $(".chosen-single-with-deselect").chosen({ allow_single_deselect: true });
     $.validator.setDefaults({ ignore: ":hidden:not(select)" });
+</script>
+
+<script type="text/javascript">
+    sessionTimeout({
+        timeOutUrl: '@Url.Action("Login","Account",null,Context.Request.Scheme)'
+    });
 </script>
 
 @await Html.PartialAsync("_PopupModal")

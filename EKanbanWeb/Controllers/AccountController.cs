@@ -189,10 +189,5 @@ namespace EKanbanWeb.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Account");
         }
-
-        public IActionResult SessionExpired()
-        {
-            return View();
-        }
     }
 }
