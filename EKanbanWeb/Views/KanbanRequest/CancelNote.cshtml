@@ -1,0 +1,28 @@
+﻿@model EKanbanWeb.Models.KanbanRequest
+@{
+    Layout = null;
+}
+
+<form asp-action="CancelSave" asp-controller="KanbanRequest" method="post" id="popupForm" onsubmit="return jQueryAjaxPost(this,'Cancel');" autocomplete="off">
+    <input type="hidden" asp-for="KanbanReqId" />
+    <div class="row">
+        <div class="col-sm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table width="100%" class="text-sm">
+                <tr>
+                    <td><label asp-for="CancelNote" class="control-label"></label></td>
+                    <td>
+                        <textarea rows="3" asp-for="CancelNote" class="form-control text-sm"></textarea>
+                        <span asp-validation-for="CancelNote" class="text-danger text-sm"></span>
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <div class="form-group">
+                <button type="submit" class="popup btn btn-primary" id="btnCancel">
+                    <span class="fas fa-ban" style="padding-right:10px;"></span>Confirm Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

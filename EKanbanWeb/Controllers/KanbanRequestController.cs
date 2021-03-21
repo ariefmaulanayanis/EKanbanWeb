@@ -448,5 +448,49 @@ namespace EKanbanWeb.Controllers
                 return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "ItemDetail", model) });
             }
         }
+
+        [HttpGet]
+        public IActionResult CancelNote(int id)
+        {
+            KanbanRequest data = DbContext.KanbanRequest.Where(a => a.KanbanReqId == id).FirstOrDefault();
+            if (data == null) return NotFound();
+            return View(data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelSave(KanbanRequest model)
+        {
+            bool status = false;
+            if (string.IsNullOrEmpty(model.CancelNote))
+            {
+                ModelState.AddModelError("CancelNote", "The Cancel Note field is required");
+            }
+            //if (ModelState.IsValid)
+            else
+            {
+                KanbanRequest data = await DbContext.KanbanRequest.Where(a => a.KanbanReqId == model.KanbanReqId).FirstOrDefaultAsync();
+                try
+                {
+                    if (data == null) return NotFound();
+                    else
+                    {
+                        data.CancelNote = model.CancelNote;
+                        data.StatusId = 2;
+                        data.EditDate = DateTime.Now;
+                        data.EditBy = LoginInfo.UserId;
+                        DbContext.KanbanRequest.Update(data);
+                        DbContext.SaveChanges();
+                        status = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogHelp.WriteErrorLog(e);
+                }
+            }
+            IndexPrep();
+            return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "CancelNote", model) });
+        }
     }
 }

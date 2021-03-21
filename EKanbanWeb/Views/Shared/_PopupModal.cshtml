@@ -31,6 +31,10 @@
                             alert("Data has been saved.");
                         else if (mode == "Copy")
                             alert("Data has been copied.");
+                        else if (mode == "Cancel") {
+                            alert("Data has been cancelled.");
+                            window.location.href = window.location.href;
+                        }
                         else if (mode == "Upload") {
                             alert("File has been uploaded.");
                             window.location.href = window.location.href;
