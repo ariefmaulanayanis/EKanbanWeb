@@ -97,7 +97,7 @@
                 <div class="col-sm-3">
                     @if (editable)
                     {
-                        <input type="number" class="form-control text-sm" asp-for="LotNumber" />
+                        <input type="number" class="form-control text-sm" asp-for="LotNumber" min="1" />
                         <span asp-validation-for="LotNumber" class="text-danger text-sm"></span>
                     }
                     else
