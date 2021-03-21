@@ -131,6 +131,7 @@ namespace EKanbanWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePasswordConfirm(ChangePasswordViewModel model)
         {
+            ViewBag.Message = "";
             //get user data
             var sessionInfo = HttpContext.Session.GetString("LoginInfo");
             LoginInfo loginInfo = JsonConvert.DeserializeObject<LoginInfo>(sessionInfo);
@@ -168,11 +169,13 @@ namespace EKanbanWeb.Controllers
                 DbContext.SyUser.Update(user);
                 await DbContext.SaveChangesAsync();
 
-                HttpContext.Session.Clear();
-                return RedirectToAction("Login", "Account");
+                //HttpContext.Session.Clear();
+                //return RedirectToAction("Login", "Account");
+                ViewBag.Message = "Your password has been changed.";
             }
 
             GetLoginInfo();
+            GetMenu();
             return View("ChangePassword", model);
         }
 
