@@ -252,6 +252,7 @@ namespace EKanbanWeb.Controllers
                         ViewBag.Message = "Trolley has been received.";
                         break;
                 }
+                return RedirectToAction("Detail", "KanbanRequest", new { id = model.KanbanReqId });
             }
             IndexPrep();
             SetViewBag(model);
@@ -490,7 +491,8 @@ namespace EKanbanWeb.Controllers
                 }
             }
             IndexPrep();
-            return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "CancelNote", model) });
+            //return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "CancelNote", model) });
+            return Json(new { status });
         }
     }
 }
