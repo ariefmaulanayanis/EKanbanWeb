@@ -1,3 +1,169 @@
 ﻿@{
     ViewData["Title"] = "Daily Report";
 }
+@await Html.PartialAsync("_Scripts")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSearch').click(function () {
+            if ($('#RequestDate').val() == "") {
+                $('#RequestDate').html("The Request Date field is required.");
+                return false;
+            }
+            else $('#RequestDateVal').html("");
+
+            var form = $("#frmSearch");
+            form.validate();
+            if (form.valid()) {
+                var lineId = $('#LineId').val();
+                var requestDate = $('#RequestDate').val();
+                oTable.ajax.url('/DailyReport/GetData?lineId=' + lineId + '&requestDate=' + requestDate);
+                oTable.ajax.reload();
+            }
+            return false;
+        });
+
+        @if ((bool)ViewBag.PageAccess.CanExport == true) {
+            @Html.Raw(ViewBag.ButtonExportJS)
+        }
+
+        var oTable = $('#tbl').DataTable({
+            dom: 'Brtip',
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                <text>
+                buttons:
+                    [
+                        {
+                            extend: 'excel',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7] }
+                        },
+                        {
+                            extend: 'pdf', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7] }
+                        },
+                        {
+                            extend: 'print', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7] }
+                        }
+                ],
+                </text>
+            }
+            scrollX: true,
+            autoWidth: false,
+            ajax: {
+                url: '/DailyReport/GetData?lineId=' + $('#LineId').val() + '&requestDate=' + $('#RequestDate').val(),
+                dataSrc: '',
+                type: 'get',
+                dataType: 'json'
+            },
+            columns: [
+                { 'data': null, width:40 },
+                { 'data': 'LineName' },
+                { 'data': 'LineNo' },
+                { 'data': 'TrolleyNo' },
+                {
+                    'data': 'RequestDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                {
+                    'data': 'SendDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                {
+                    'data': 'ReceiveDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                { 'data': 'StatusName' }
+            ],
+            fixedColumns: {
+                leftColumns: 2
+            },
+            "processing": "true",
+            "language": {
+                "processing": "processing... please wait"
+            },
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                @Html.Raw(ViewBag.ButtonExportHide)
+            }
+            //serverSide: true,
+            filter: false,
+            orderMulti: false
+        });
+
+        oTable.on('order.dt search.dt', function () {
+            oTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+</script>
+
+<div style="width:100%" margin="0 auto" class="tableContainer text-sm">
+    <div class="card" id="filterForm">
+        @Html.Raw(ViewBag.CardHeadFilter)
+        <div class="card-body">
+            <form id="frmSearch" class="form-horizontal text-sm" method="get" asp-action="Index" asp-controller="KanbanRequest">
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-2">Request Date:</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control text-sm" id="RequestDate" value="@ViewBag.RequestDate.ToString("yyyy-MM-dd")" />
+                        <span id="RequestDateVal" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <label class="col-form-label-sm col-sm-2">Line:</label>
+                    <div class="col-sm-3">
+                        @if (ViewBag.UserRoleId == 2)
+                        {
+                            <input type="hidden" value="@ViewBag.UserLineId" id="LineId" />
+                            <input type="text" class="form-control text-sm" value="@ViewBag.UserLineName" readonly />
+                        }
+                        else
+                        {
+                            <select id="LineId" asp-items="@ViewBag.Lines" class="form-control chosen-select">
+                                <option value="0">All lines...</option>
+                            </select>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.Raw(ViewBag.SearchButton)
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" id="filterForm">
+        <div class="card-body">
+            <div class="btn-group" role="group" style="margin-bottom:10px;">
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    @Html.Raw(ViewBag.ButtonExportHtml)
+                }
+            </div>
+            <table id="tbl" class="display text-sm">
+                <thead class="bg-info">
+                    <tr>
+                        <th>No.</th>
+                        <th>Line Name</th>
+                        <th>Line No</th>
+                        <th>Trolley No</th>
+                        <th>Request Time</th>
+                        <th>Send Time</th>
+                        <th>Receive Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

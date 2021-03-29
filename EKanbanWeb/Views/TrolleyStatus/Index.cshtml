@@ -1,8 +1,166 @@
 ﻿@{
     ViewData["Title"] = "Trolley Status";
 }
+@await Html.PartialAsync("_Scripts")
 
-<form method="post" asp-action="SendMail" asp-controller="TrolleyStatus">
-    <div asp-validation-summary="ModelOnly" class="text-danger text-sm"></div>
-    <button type="submit" value="Send Mail">Send Mail</button>
-</form>
+@*<form method="post" asp-action="SendMail" asp-controller="TrolleyStatus">
+        <div asp-validation-summary="ModelOnly" class="text-danger text-sm"></div>
+        <button type="submit" value="Send Mail">Send Mail</button>
+    </form>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSearch').click(function () {
+            var form = $("#frmSearch");
+            form.validate();
+            if (form.valid()) {
+                var lineId = $('#LineId').val();
+                oTable.ajax.url('/TrolleyStatus/GetData?lineId=' + lineId);
+                oTable.ajax.reload();
+            }
+            return false;
+        });
+
+        @if ((bool)ViewBag.PageAccess.CanExport == true) {
+            @Html.Raw(ViewBag.ButtonExportJS)
+        }
+
+        var oTable = $('#tbl').DataTable({
+            dom: 'Brtip',
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                <text>
+                buttons:
+                    [
+                        {
+                            extend: 'excel',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+                        },
+                        {
+                            extend: 'pdf', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+                        },
+                        {
+                            extend: 'print', orientation: 'portrait', pageSize: 'A4',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+                        }
+                ],
+                </text>
+            }
+            scrollX: true,
+            autoWidth: false,
+            ajax: {
+                url: '/TrolleyStatus/GetData?lineId=' + $('#LineId').val(),
+                dataSrc: '',
+                type: 'get',
+                dataType: 'json'
+            },
+            columns: [
+                { 'data': null, width:40 },
+                { 'data': 'TagRequestNo', width: 100 },
+                { 'data': 'PartFGNo' },
+                { 'data': 'LotNumber' },
+                { 'data': 'LineNo' },
+                { 'data': 'TrolleyNo' },
+                {
+                    'data': 'SendDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                {
+                    'data': 'ReturnDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                {
+                    'data': 'ReceiveDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                { 'data': 'Status' }
+            ],
+            fixedColumns: {
+                leftColumns: 2
+            },
+            "processing": "true",
+            "language": {
+                "processing": "processing... please wait"
+            },
+            @if ((bool)ViewBag.PageAccess.CanExport == true)
+            {
+                @Html.Raw(ViewBag.ButtonExportHide)
+            }
+            //serverSide: true,
+            filter: false,
+            orderMulti: false
+        });
+
+        oTable.on('order.dt search.dt', function () {
+            oTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
+</script>
+
+<div style="width:100%" margin="0 auto" class="tableContainer text-sm">
+    <div class="card" id="filterForm">
+        @Html.Raw(ViewBag.CardHeadFilter)
+        <div class="card-body">
+            <form id="frmSearch" class="form-horizontal text-sm" method="get" asp-action="Index" asp-controller="KanbanRequest">
+                <div class="form-group row">
+                    <label class="col-form-label-sm col-sm-2">Line:</label>
+                    <div class="col-sm-3">
+                        @if (ViewBag.UserRoleId == 2)
+                        {
+                            <input type="hidden" value="@ViewBag.UserLineId" id="LineId" />
+                            <input type="text" class="form-control text-sm" value="@ViewBag.UserLineName" readonly />
+                        }
+                        else
+                        {
+                            <select id="LineId" asp-items="@ViewBag.Lines" class="form-control chosen-select">
+                                <option value="">All lines...</option>
+                            </select>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.Raw(ViewBag.SearchButton)
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" id="filterForm">
+        <div class="card-body">
+            <div class="btn-group" role="group" style="margin-bottom:10px;">
+                @if ((bool)ViewBag.PageAccess.CanExport == true)
+                {
+                    @Html.Raw(ViewBag.ButtonExportHtml)
+                }
+            </div>
+            <table id="tbl" class="display text-sm">
+                <thead class="bg-info">
+                    <tr>
+                        <th>No.</th>
+                        <th>E-Kanban No</th>
+                        <th>Part FG No</th>
+                        <th>Lot Number</th>
+                        <th>Line No</th>
+                        <th>Trolley No</th>
+                        <th>Send Time</th>
+                        <th>Return Time</th>
+                        <th>Receive Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
