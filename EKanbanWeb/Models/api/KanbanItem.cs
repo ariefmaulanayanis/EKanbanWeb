@@ -11,6 +11,7 @@ namespace EKanbanWeb.Models.api
         [Key]
         public int ReqItemId { get; set; }
         public int KanbanReqId { get; set; }
+        public DateTime RequestDate { get; set; }
         public int ReqNo { get; set; }
         public int PartId { get; set; }
         public string PartNo { get; set; }

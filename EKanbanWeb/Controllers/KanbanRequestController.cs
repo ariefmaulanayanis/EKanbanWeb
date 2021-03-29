@@ -378,7 +378,7 @@ namespace EKanbanWeb.Controllers
 
             vKanbanRequest vKanban = new vKanbanRequest();
             EKanbanReport model = new EKanbanReport();
-            if (viewlist != null)
+            if (viewlist != null && viewlist.Count != 0)
             {
                 vKanban = viewlist[0];
                 model.vKanbanRequest = vKanban;
@@ -391,6 +391,7 @@ namespace EKanbanWeb.Controllers
                 List<EKanbanReportItem> itemlist = SqlHelp.ConvertToList<EKanbanReportItem>(dt);
                 model.ItemList = itemlist;
             }
+            else return NotFound();
 
             return View(model);
         }

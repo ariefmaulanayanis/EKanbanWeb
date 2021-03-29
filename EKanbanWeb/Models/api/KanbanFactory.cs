@@ -35,6 +35,7 @@ namespace EKanbanWeb.Models.api
                             KanbanItem kanbanItem = new KanbanItem();
                             kanbanItem.ReqItemId = item.ReqItemId;
                             kanbanItem.KanbanReqId = request.KanbanReqId;
+                            kanbanItem.RequestDate = request.RequestDateTime.AddMilliseconds(-request.RequestDateTime.Millisecond);
                             kanbanItem.ReqNo = request.TagRequestNo;
                             kanbanItem.PartId = item.PartId;
                             kanbanItem.PartNo = part.PartNo;

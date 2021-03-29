@@ -45,12 +45,5 @@ namespace EKanbanWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        [Route("generate")]
-        public IActionResult Generate(string productId)
-        {
-            ViewBag.ProductId = productId;
-            return View("Index");
-        }
     }
 }
