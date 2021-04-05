@@ -32,12 +32,11 @@ namespace EKanbanWeb.Controllers
         public IActionResult Index()
         {
             IndexPrep();
-            ViewBag.Lines = FrmHelp.GetLineList();
             switch (LoginInfo.RoleId)
             {
                 case 1: 
                     ViewBag.Lines = FrmHelp.GetLineList();
-                    ViewBag.Statuses = FrmHelp.GetKanbanStatusList();
+                    ViewBag.Statuses = FrmHelp.GetKanbanStatusList(1);
                     break;
                 case 2:
                     ViewBag.Lines = FrmHelp.GetLineList((int)LoginInfo.LineId);
@@ -91,7 +90,7 @@ namespace EKanbanWeb.Controllers
                     data.TagRequestNo = 0;
                 }
                 SetViewBag(data);
-                ViewBag.Message = "";
+                //ViewBag.Message = "";
                 return View(data);
             }
             catch (Exception e)
@@ -191,9 +190,9 @@ namespace EKanbanWeb.Controllers
                 switch (button)
                 {
                     case "save":
+                        model.StatusId = 1;
                         if (model.KanbanReqId == 0)
                         {
-                            model.StatusId = 1;
                             model.RequestDateTime = DateTime.Now;
                             model.TagRequestNo = GenerateReqNo();
                         }
@@ -252,7 +251,7 @@ namespace EKanbanWeb.Controllers
                         ViewBag.Message = "Trolley has been received.";
                         break;
                 }
-                return RedirectToAction("Detail", "KanbanRequest", new { id = model.KanbanReqId });
+                //return RedirectToAction("Detail", "KanbanRequest", new { id = model.KanbanReqId });
             }
             IndexPrep();
             SetViewBag(model);
@@ -373,6 +372,7 @@ namespace EKanbanWeb.Controllers
             string sp = "sp_KanbanReport";
             List<SqlParameter> param = new List<SqlParameter>();
             param.Add(new SqlParameter("@kanbanReqId", id));
+            param.Add(new SqlParameter("@userId", LoginInfo.UserId));
             dt = SqlHelp.ExecQuery(sp, param);
             List<vKanbanRequest> viewlist = SqlHelp.ConvertToList<vKanbanRequest>(dt);
 

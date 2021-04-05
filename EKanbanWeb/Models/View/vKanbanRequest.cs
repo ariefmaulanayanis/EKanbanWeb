@@ -19,6 +19,7 @@ namespace EKanbanWeb.Models.View
         public int TrolleyNo { get; set; }
         public string QRCode { get; set; }
         public int TagRequestNo { get; set; }
-
+        public DateTime? PrintDateTime { get; set; }
+        public DateTime? RePrint { get; set; }
     }
 }

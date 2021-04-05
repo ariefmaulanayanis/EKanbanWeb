@@ -33,15 +33,15 @@
                     [
                         {
                             extend: 'excel',
-                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
                         },
                         {
                             extend: 'pdf', orientation: 'portrait', pageSize: 'A4',
-                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
                         },
                         {
                             extend: 'print', orientation: 'portrait', pageSize: 'A4',
-                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9] }
+                            exportOptions: { columns: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
                         }
                 ],
                 </text>
@@ -106,7 +106,14 @@
                 { 'data': 'LineNo' },
                 { 'data': 'LineName' },
                 { 'data': 'TrolleyNo' },
-                { 'data': 'StatusName' }
+                { 'data': 'StatusName' },
+                {
+                    'data': 'PrintDateTime', width: 130,
+                    'render': function (data) {
+                        return GetFormattedDateTime(data);
+                    }
+                },
+                { 'data': 'RePrint' }
             ],
             fixedColumns: {
                 leftColumns: 2
@@ -194,13 +201,15 @@
                         <th>No.</th>
                         @Html.Raw(ViewBag.ActionColumnHtml)
                         <th>Request No</th>
-                        <th>Request Date Time</th>
-                        <th>Part FG No</th>
-                        <th>Part FG Name</th>
+                        <th style="min-width:100px;max-width:100px">Request Date Time</th>
+                        <th style="min-width:100px;max-width:100px">Part FG No</th>
+                        <th style="min-width:150px;max-width:150px">Part FG Name</th>
                         <th>Line No</th>
                         <th>Line Name</th>
                         <th>Trolley No</th>
                         <th>Status</th>
+                        <th style="min-width:100px;max-width:100px">Print Date Time</th>
+                        <th>RePrint</th>
                     </tr>
                 </thead>
                 <tbody>

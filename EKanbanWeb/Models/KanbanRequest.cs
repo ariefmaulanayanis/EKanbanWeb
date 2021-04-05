@@ -37,7 +37,9 @@ namespace EKanbanWeb.Models
         [Display(Name = "Cancel Note")]
         public string CancelNote { get; set; }
         [Display(Name = "Is Printed")]
-        public bool? IsPrinted { get; set; }
+        //public bool? IsPrinted { get; set; }
+        public DateTime? PrintDateTime { get; set; }
+        public short? RePrint { get; set; }
         public DateTime? InsertDate { get; set; }
         public short? InsertBy { get; set; }
         public DateTime? EditDate { get; set; }

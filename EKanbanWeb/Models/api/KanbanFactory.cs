@@ -26,6 +26,18 @@ namespace EKanbanWeb.Models.api
                 List<KanbanItem> reqItems = new List<KanbanItem>();
                 foreach (KanbanRequest request in reqList)
                 {
+                    short lineNo = 0;
+                    string lineName = "";
+                    MsPartFG fg = DbContext.MsPartFG.Where(a => a.PartFGId == request.PartFGId).FirstOrDefault();
+                    if (fg != null)
+                    {
+                        MsLine line = DbContext.MsLine.Where(a => a.LineId == fg.LineId).FirstOrDefault();
+                        if (line != null)
+                        {
+                            lineNo = line.LineNo;
+                            lineName = line.LineName;
+                        }
+                    }
                     List<KanbanReqItem> items = DbContext.KanbanReqItem.Where(a => a.KanbanReqId==request.KanbanReqId).ToList();
                     foreach(KanbanReqItem item in items)
                     {
@@ -35,12 +47,15 @@ namespace EKanbanWeb.Models.api
                             KanbanItem kanbanItem = new KanbanItem();
                             kanbanItem.ReqItemId = item.ReqItemId;
                             kanbanItem.KanbanReqId = request.KanbanReqId;
+                            kanbanItem.RequestNo = request.TagRequestNo;
                             kanbanItem.RequestDate = request.RequestDateTime.AddMilliseconds(-request.RequestDateTime.Millisecond);
                             kanbanItem.ReqNo = request.TagRequestNo;
                             kanbanItem.PartId = item.PartId;
                             kanbanItem.PartNo = part.PartNo;
                             kanbanItem.LotSize = part.LotSize;
                             kanbanItem.Zone = part.Zone;
+                            kanbanItem.LineNo = lineNo;
+                            kanbanItem.LineName = lineName;
                             kanbanItem.OrderQty = item.ReqKanban;
                             reqItems.Add(kanbanItem);
                         }

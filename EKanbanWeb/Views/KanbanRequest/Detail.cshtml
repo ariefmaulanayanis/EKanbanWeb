@@ -11,36 +11,44 @@
             GetPartFGData(partFGId);
         });
 
-        @if (ViewBag.Message != "")
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
         {
             <text>alert("@ViewBag.Message");</text>
+            if(ViewBag.Message== "Kanban Request been sent to WH.")
+            {
+                <text>
+                    var urlPrint = '@Url.Action("Print","KanbanRequest",null,Context.Request.Scheme)';
+                    urlPrint = urlPrint + '/' + @Model.KanbanReqId;
+                    window.open(urlPrint, '_blank');
+                </text>
+            }
         }
-    });
+        });
 
     function GetPartFGData(partFGId) {
-        var url = '/KanbanRequest/GetPartFGData';
+            var url = '/KanbanRequest/GetPartFGData';
         $.ajax({
             type: "post",
             url: url,
             data: { partFGId },
             dataType: 'json',
             success: function (data) {
-                if (data != "") {
+                    if (data != "") {
                     $('#PartFGName').val(data.partFGName);
                     $('#LineNo').val(data.lineNo);
                     $('#LineName').val(data.lineName);
-                }
-                else {
+                    }
+                    else {
                     $('#PartFGName').val("");
                     $('#LineNo').val("");
                     $('#LineName').val("");
-                }
-            },
+                    }
+                },
             error: function () {
-                alert('error');
-            }
-        });
-    }
+                    alert('error');
+                }
+            });
+        }
 </script>
 
 <form id="frmDetail" asp-action="Detail" asp-controller="KanbanRequest" method="post" autocomplete="off">
