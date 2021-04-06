@@ -33,7 +33,18 @@
                             alert("Data has been copied.");
                         else if (mode == "Cancel") {
                             alert("Data has been cancelled.");
-                            window.location.href = window.location.href;
+                            @if (ViewBag.KanbanReqId != null)
+                            {
+                                <text>
+                                window.location.href = window.location.href + "/" +@ViewBag.KanbanReqId;
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                window.location.href = window.location.href;
+                                </text>
+                            }
                         }
                         else if (mode == "Upload") {
                             alert("File has been uploaded.");

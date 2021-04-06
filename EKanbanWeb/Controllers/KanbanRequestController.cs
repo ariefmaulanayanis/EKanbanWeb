@@ -125,6 +125,7 @@ namespace EKanbanWeb.Controllers
                     ViewBag.LineName = line.LineName;
                 }
                 ViewBag.Action = "edit";
+                ViewBag.KanbanReqId = data.KanbanReqId;
             }
             else
             {
@@ -492,8 +493,8 @@ namespace EKanbanWeb.Controllers
                 }
             }
             IndexPrep();
-            //return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "CancelNote", model) });
-            return Json(new { status });
+            return Json(new { status, html = ViewHelper.RenderRazorViewToString(this, "CancelNote", model) });
+            //return Json(new { status });
         }
     }
 }
