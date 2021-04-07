@@ -15,7 +15,7 @@ namespace EKanbanWeb.ViewModel
         public string PartNo { get; set; }
         public string PartName { get; set; }
         public int ReqKanban { get; set; }
-        public int LotSize { get; set; }
+        public double LotSize { get; set; }
         public string Zone { get; set; }
         public string Supplier { get; set; }
     }

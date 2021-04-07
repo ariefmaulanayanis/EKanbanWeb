@@ -53,7 +53,7 @@
 
 <form id="frmDetail" asp-action="Detail" asp-controller="KanbanRequest" method="post" autocomplete="off">
     <div asp-validation-summary="ModelOnly" class="text-danger text-sm"></div>
-    <input type="hidden" asp-for="KanbanReqId" />
+    <input type="hidden" asp-for="KanbanReqId" value="@Model.KanbanReqId" />
     <div class="card">
         <div class="card-body">
             <div class="form-group-sm row" style="margin-bottom:5px">
