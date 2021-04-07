@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
@@ -33,45 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ReportDataSet\DataSet1.Designer.cs">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="ReportDataSet\dsEKanbanReport.Designer.cs">
-      <DependentUpon>dsEKanbanReport.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="ReportDataSet\dsEKanbanReport2.Designer.cs">
-      <DependentUpon>dsEKanbanReport2.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\Reports\Report1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="ReportDataSet\DataSet1.xsd">
-      <SubType>Designer</SubType>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
-    <None Update="ReportDataSet\dsEKanbanReport.xsd">
-      <SubType>Designer</SubType>
-      <LastGenOutput>dsEKanbanReport.Designer.cs</LastGenOutput>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
-    <None Update="ReportDataSet\dsEKanbanReport2.xsd">
-      <SubType>Designer</SubType>
-      <LastGenOutput>dsEKanbanReport2.Designer.cs</LastGenOutput>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
   </ItemGroup>
 
 </Project>
