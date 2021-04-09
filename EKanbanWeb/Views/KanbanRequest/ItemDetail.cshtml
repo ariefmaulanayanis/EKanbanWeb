@@ -31,7 +31,7 @@
                 <tr>
                     <td><label asp-for="ReqKanban" class="control-label"></label></td>
                     <td>
-                        <input type="number" class="form-control text-sm" asp-for="ReqKanban" />
+                        <input type="number" class="form-control text-sm" asp-for="ReqKanban" min="0" />
                         <span asp-validation-for="ReqKanban" class="text-danger text-sm"></span>
                     </td>
                 </tr>
