@@ -1,7 +1,0 @@
-﻿namespace RDLCDesign
-{
-}
-
-namespace RDLCDesign
-{
-}
