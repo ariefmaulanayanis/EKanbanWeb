@@ -21,7 +21,7 @@ namespace EKanbanWeb.Controllers
     public class UserController : BaseController
     {
         public UserController(EKanbanWebDBContext context,
-            ILogger<DailyReportController> logger, IHttpContextAccessor accessor, IConfiguration configuration, IHostEnvironment hostEnvironment) :
+            ILogger<UserController> logger, IHttpContextAccessor accessor, IConfiguration configuration, IHostEnvironment hostEnvironment) :
             base(logger, accessor, configuration, hostEnvironment)
         {
             DbContext = context;
