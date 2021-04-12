@@ -13,6 +13,8 @@ namespace EKanbanWeb.Configuration
         public string password { get; set; }
 
         public IConfiguration Configuration { get; }
+
+        //store db user and password
         public DbConf(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             Configuration = configuration;
@@ -27,6 +29,8 @@ namespace EKanbanWeb.Configuration
                 password = "12345";
             }
         }
+
+        //generate connection string
         public string GetConnectionString()
         {
             string connString = Configuration.GetConnectionString("EKanbanWebDBConnection");
