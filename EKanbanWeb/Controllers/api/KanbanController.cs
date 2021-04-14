@@ -66,6 +66,7 @@ namespace EKanbanWeb.Controllers.api
                 if (kanban != null)
                 {
                     kanban.StatusId = 4;
+                    kanban.ReturnDateTime = DateTime.Now;
                     kanban.EditBy = 0;
                     kanban.EditDate = DateTime.Now;
                     DbContext.KanbanRequest.Update(kanban);

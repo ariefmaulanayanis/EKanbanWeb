@@ -203,7 +203,10 @@ namespace EKanbanWeb.Controllers
                         model.StatusId = 3;
                         model.SendDateTime = DateTime.Now;
                         break;
-                    case "receive": model.StatusId = 5; break;
+                    case "receive": 
+                        model.StatusId = 5;
+                        model.ReceiveDateTime = DateTime.Now;
+                        break;
                 }
 
                 KanbanRequest data = await DbContext.KanbanRequest.Where(a => a.KanbanReqId == model.KanbanReqId).FirstOrDefaultAsync();
@@ -226,6 +229,7 @@ namespace EKanbanWeb.Controllers
                         data.LotNumber = model.LotNumber;
                         data.TrolleyNo = model.TrolleyNo;
                         data.SendDateTime = model.SendDateTime;
+                        data.ReceiveDateTime = model.ReceiveDateTime;
                         data.EditDate = DateTime.Now;
                         data.EditBy = LoginInfo.UserId;
                         DbContext.KanbanRequest.Update(data);
