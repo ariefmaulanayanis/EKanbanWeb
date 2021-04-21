@@ -40,6 +40,7 @@ namespace EKanbanWeb.Models
         //public bool? IsPrinted { get; set; }
         public DateTime? PrintDateTime { get; set; }
         public short? RePrint { get; set; }
+        public short? RePrintWH { get; set; }
         public DateTime? InsertDate { get; set; }
         public short? InsertBy { get; set; }
         public DateTime? EditDate { get; set; }
