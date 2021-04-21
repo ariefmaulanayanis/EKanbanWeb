@@ -1,7 +1,9 @@
 ﻿@model EKanbanWeb.Models.KanbanRequest
 @{
     ViewData["Title"] = "Kanban Request Detail";
-    bool editable = (Model.StatusId == 1 || Model.StatusId == 3) && ViewBag.UserRoleId != 3;
+    //bool editable = (Model.StatusId == 1 || Model.StatusId == 3) && ViewBag.UserRoleId != 3;
+    bool editableheader = (Model.StatusId == 1 && ViewBag.UserRoleId != 3);
+    bool editable = (Model.StatusId == 1 && ViewBag.UserRoleId != 3) || (Model.StatusId == 3 && ViewBag.UserRoleId != 2);
 }
 
 <script type="text/javascript">
@@ -23,10 +25,10 @@
                 </text>
             }
         }
-        });
+    });
 
     function GetPartFGData(partFGId) {
-            var url = '/KanbanRequest/GetPartFGData';
+        var url = '/KanbanRequest/GetPartFGData';
         $.ajax({
             type: "post",
             url: url,
@@ -70,7 +72,7 @@
             <div class="form-group-sm row" style="margin-bottom:5px">
                 <label asp-for="PartFGId" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    @if (editable)
+                    @if (editableheader)
                     {
                         <select asp-for="PartFGId" asp-items="@ViewBag.PartFGList" class="form-control chosen-select">
                             <option value="">Please select part FG...</option>
@@ -103,7 +105,7 @@
             <div class="form-group-sm row" style="margin-bottom:5px">
                 <label asp-for="LotNumber" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    @if (editable)
+                    @if (editableheader)
                     {
                         <input type="number" class="form-control text-sm" asp-for="LotNumber" min="1" />
                         <span asp-validation-for="LotNumber" class="text-danger text-sm"></span>
@@ -116,7 +118,7 @@
                 <div class="col-sm-1"></div>
                 <label asp-for="TrolleyNo" class="col-form-label-sm col-sm-2"></label>
                 <div class="col-sm-3">
-                    @if (editable)
+                    @if (editableheader)
                     {
                         <input type="number" class="form-control text-sm" asp-for="TrolleyNo" min="0" />
                         <span asp-validation-for="TrolleyNo" class="text-danger text-sm"></span>
@@ -163,7 +165,7 @@
         }
     </div>
     <div class="form-group">
-        @{ var floatright = ""; }
+        @{ var btnbackfloat = ""; }
         @if (ViewBag.UserRoleId == 1 || ViewBag.UserRoleId == 2) //admin atau manufacture
         {
             @if (Model.StatusId == 1)
@@ -181,17 +183,17 @@
                         <span class="fas fa-warehouse" style="padding-right:10px;"></span>Send To Warehouse
                     </button>
                 }
-                floatright = "float-right";
+                btnbackfloat = "float-right";
             }
             @if (Model.StatusId == 3 || Model.StatusId == 4)
             {
                 <button id="btnReceive" name="button" value="receive" type="submit" class="popup btn btn-success text-sm">
                     <span class="fas fa-hand-holding" style="padding-right:10px;"></span>Receive
                 </button>
-                floatright = "float-right";
+                btnbackfloat = "float-right";
             }
         }
-        <button type="button" class="popup btn btn-primary text-sm @floatright" id="btnBack" onclick="window.location = '@Url.Action("Index", "KanbanRequest", null, Context.Request.Scheme)'">
+        <button type="button" class="popup btn btn-primary text-sm @btnbackfloat" id="btnBack" onclick="window.location = '@Url.Action("Index", "KanbanRequest", null, Context.Request.Scheme)'">
             <span class="fas fa-arrow-circle-left" style="padding-right:10px;"></span>Back to Kanban Request Page
         </button>
     </div>
