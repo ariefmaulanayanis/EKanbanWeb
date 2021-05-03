@@ -31,8 +31,12 @@ namespace EKanbanWeb.Controllers
 
         public IActionResult Index()
         {
-            IndexPrep();
-            return View();
+
+            //Block to dashboard
+            return RedirectToAction("Index", "Dashboard");
+            //Default
+            //IndexPrep();
+            //return View();
         }
 
         public IActionResult Privacy()

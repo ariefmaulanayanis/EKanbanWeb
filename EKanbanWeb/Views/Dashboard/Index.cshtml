@@ -7,23 +7,64 @@
     $(document).ready(function () {
         //var daily = $('#daily').getContext('2d');
         var daily = document.getElementById('daily').getContext('2d');
-        var dailychart = new Chart(daily, {
+        new Chart(daily, {
             type: 'bar',
             data: {
-                labels: ['001', '002', '003'],
+                labels: '@ViewBag.ChartDailyText'.split(','),
                 datasets: [{
-                    label: 'Bar Charts',
-                    data: [100, 200, 300],
-                    backgroundcolor: 'rgba(6,128,250)'
+                    label: '',
+                    data: '@ViewBag.ChartDailyVal'.split(','),
+                    backgroundColor: 'rgb(0, 120, 212)'
                 }]
             },
             options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            display: false,
+                            boxWidth:0
+                        }
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
                         }
                     }]
+                }
+            }
+        });
+
+        //Monthly
+        var monthly = document.getElementById('monthly').getContext('2d');
+        new Chart(monthly, {
+            type: 'bar',
+            data: {
+                labels: '@ViewBag.ChartMonthlyText'.split(','),
+                datasets: [
+                    {
+                        label: 'Trolley',
+                        data: '@ViewBag.ChartMonthlyTrolley'.split(','),
+                        backgroundColor: '#6296ce'
+                    },
+                    {
+                        label: 'Kanban',
+                        data: '@ViewBag.ChartMonthlyKanban'.split(','),
+                        backgroundColor: '#d67d40'
+                    },
+                    {
+                        label: 'Delay',
+                        data: '@ViewBag.ChartMonthlyDelay'.split(','),
+                        backgroundColor: '#a5a5a5'
+                    },
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
                 }
             }
         });
@@ -37,7 +78,7 @@
             </span>
             <div class="info-box-content">
                 <span class="info-box-text">Trolley (per day)</span>
-                <span class="info-box-number">150</span>
+                <span class="info-box-number">@ViewBag.Trolley</span>
             </div>
         </div>
         <div class="info-box bg-gradient-info">
@@ -46,7 +87,7 @@
             </span>
             <div class="info-box-content">
                 <span class="info-box-text">Kanban (per day)</span>
-                <span class="info-box-number">80</span>
+                <span class="info-box-number">@ViewBag.Kanban</span>
             </div>
         </div>
         <div class="info-box bg-gradient-danger">
@@ -55,14 +96,27 @@
             </span>
             <div class="info-box-content">
                 <span class="info-box-text">Trolley Delay (per day)</span>
-                <span class="info-box-number">45</span>
+                <span class="info-box-number">@ViewBag.TrolleyDelay</span>
             </div>
         </div>
     </div>
     <div class="col-sm-8">
         <div class="card">
+            <div class="card-header text-center">
+                <h4>DAILY REPORT : @DateTime.Now.ToString("dd MMMM yyyy")</h4>
+            </div>
             <div class="card-body">
                 <canvas class="my-auto h-auto" id="daily"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>MONTHLY REPORT : @DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <canvas class="my-auto h-auto" id="monthly"></canvas>
             </div>
         </div>
     </div>
