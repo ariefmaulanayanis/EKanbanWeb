@@ -32,6 +32,9 @@ namespace EKanbanWeb.Controllers.api
                 return Unauthorized();
             }
             Console.WriteLine("GET /api/kanban");
+            //Do Refresh
+            KanbanFactory factory = new KanbanFactory(DbContext);
+            factory.syncItem(this.AuthorizationToken);
             return new JsonResult(UserKanban);
         }
 
