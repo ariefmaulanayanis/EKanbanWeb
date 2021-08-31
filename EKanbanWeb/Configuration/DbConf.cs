@@ -21,12 +21,12 @@ namespace EKanbanWeb.Configuration
             if (hostEnvironment.IsDevelopment())
             {
                 userId = "sa";
-                password = "Sabeso76";
+                password = "p@ssw0rd";
             }
             if (hostEnvironment.IsProduction())
             {
                 userId = "sa";
-                password = "Sabeso76";
+                password = "aine1010";
             }
         }
 
